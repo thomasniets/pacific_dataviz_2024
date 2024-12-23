@@ -3,45 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Interactive External SVG</title>
-  <!-- <style>
-    /* Example styles for SVG elements */
-    .highlighted {
-      fill: red !important;
-    }
-  </style> -->
+  <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
+  <title>Education and Equality in the Pacific</title>
 </head>
 <body>
 
-  <!-- Embed the external SVG -->
   <object id="mySvgObject" type="image/svg+xml" data="base.svg"></object>
 
   <script>
-    // Function to run once the SVG is fully loaded
     document.getElementById('mySvgObject').addEventListener('load', function() {
-      // Access the embedded SVG's document
+
       var svgDoc = this.contentDocument;
 
-      // Example: Access an element by its ID (assuming there's a circle with id="circle1" in the SVG)
-      var circleElement = svgDoc.getElementById('medusa_x5F_nauru');
+      var circleElement = svgDoc.getElementById('year_mark');
 
-      // Add an event listener to the circle element
       if (circleElement) {
         circleElement.addEventListener('click', function() {
-          alert('Nauru clicked!');
-          
+          alert('empty year clicked!');
           // Example: Change the color of the circle when clicked
         //   circleElement.classList.add('highlighted');
         });
       }
 
-      // Example: Access other elements by class or tag
-    //   var rectElements = svgDoc.getElementsByTagName('rect');
-    //   for (var i = 0; i < rectElements.length; i++) {
-    //     rectElements[i].addEventListener('click', function() {
-    //       alert('Rectangle clicked!');
-    //     });
-    //   }
+      const svgElement = document.getElementById('mySvgObject');
+      const panzoom = Panzoom(svgElement, { canvas: true });
+      panzoom.zoom(2, { animate: true });
+      // panzoom.pan(200, 200);
+      svgElement.addEventListener('wheel', panzoom.zoomWithWheel);
+      // svgElement.addEventListener('mousedown', panzoom.start);
+
     });
   </script>
 
